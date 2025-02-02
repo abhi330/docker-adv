@@ -7,7 +7,8 @@ WORKDIR /app
 # Copy only necessary files to leverage Docker cache
 COPY pom.xml .
 COPY src ./src
-
+#testing
+RUN mvn clean test -Dspring.profiles.active=test
 # Build the application
 RUN mvn clean package -DskipTests
 

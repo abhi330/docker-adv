@@ -27,7 +27,7 @@ jobs:
 
       - name: Build and Run Services with Docker Compose
         run: |
-          ls -la  # ✅ Ensure mysql/ and redis/ directories exist
+          ls -la  # hekps to Ensure mysql and redis directories exist
           docker-compose up -d --build
           echo "Waiting for services to start..."
           sleep 20  # Allow services to initialize
