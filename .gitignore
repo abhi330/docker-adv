@@ -1,0 +1,11 @@
+
+.idea/
+
+ss/
+
+target/
+
+# Ignore other common unnecessary files
+*.log
+*.class
+.DS_Store
