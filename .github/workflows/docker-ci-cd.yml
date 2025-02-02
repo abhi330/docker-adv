@@ -1,4 +1,4 @@
-name: CI/CD Pipeline - Customer Service
+name: CI/CD Pipeline - Customer Service (Docker Compose)
 
 on:
   push:
@@ -16,26 +16,19 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-          cache: maven
-
-      - name: Build and Test Spring Boot Application
-        run: |
-          cd customer-service
-          mvn clean package 
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
       - name: Build and Run Services with Docker Compose
         run: |
           docker-compose up -d --build
-          sleep 15  # Wait for services to start
+          echo "Waiting for services to start..."
+          sleep 20  # Allow services to initialize
           docker ps  # Verify running containers
+
+      - name: Run Tests Inside Customer Service Container
+        run: |
+          docker exec customer-service mvn test
 
       - name: Shut Down Docker Compose
         run: docker-compose down
@@ -54,11 +47,8 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build Customer Service Image
+      - name: Build and Push Customer Service Image
         run: |
-          cd customer-service
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/customer-service:latest .
-
-      - name: Push Customer Service Image to Docker Hub
-        run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/customer-service:latest
+          docker-compose build
+          docker tag abhilashmedaboina/dockerone:customer-service-adv ${{ secrets.DOCKER_USERNAME }}/dockerone:customer-service-adv
+          docker push ${{ secrets.DOCKER_USERNAME }}/dockerone:customer-service-adv
