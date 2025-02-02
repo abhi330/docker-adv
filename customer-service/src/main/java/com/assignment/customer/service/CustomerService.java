@@ -59,7 +59,7 @@ public class CustomerService {
     }
 
     // Cache the result of this method with key = #id
-    //@Cacheable(value = "customers", key = "#id")
+     //@Cacheable(value = "customers", key = "#id")
     public Customer getCustomerDetails(Long id) {
         logger.info("Fetching customer from DB, ID: {}", id);
         return customerRepository.findById(id).orElse(null);
