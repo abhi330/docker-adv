@@ -1,0 +1,140 @@
+{
+	"info": {
+		"_postman_id": "e0accb53-98a4-43ba-988e-3e3d67ed7602",
+		"name": "advance",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40350854"
+	},
+	"item": [
+		{
+			"name": "get customer by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9001/customer/getCustomer/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"customer",
+						"getCustomer",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllCustomers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9001/customer/allCustomers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"customer",
+						"allCustomers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update customer details",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n     \"customerFirstName\": \"ravindra\",\r\n        \"customerLastName\": \"Doe lastname\",\r\n        \"customerEmail\": \"ravindra@gmail.com\",\r\n        \"customerPhone\": 11111111111,\r\n        \"customerAddress\": \"hyd\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9001/customer/updateCustomer/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"customer",
+						"updateCustomer",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete Customer",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9001/customer/deleteCustomer/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"customer",
+						"deleteCustomer",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "save customer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"customerEmail\": \"john.ok@example.com\",\r\n    \"customerFirstName\": \"John\",\r\n    \"customerLastName\": \"Doe\",\r\n    \"customerPhone\": \"+1234567890\",\r\n    \"customerAddress\": \"123 Main St, Springfield, USA\",\r\n    \"accountId\": 101\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9001/customer/saveCustomer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"customer",
+						"saveCustomer"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,9 +1,10 @@
 services to run 
 
- 1.account-service  port:9002  crud operations on accounts
- 2.customer-service port:9001  crud operations on users 
 
-a basic prototype of a banking application for user and account management with functionalities mentioned below 
+ 1.customer-service port:9001  crud operations on users 
+
+
+a basic prototype of user crud operations 
 
 customer service apis for given functionalities
  1. add customer   		 url : http://localhost:9001/customer/saveCustomer
@@ -12,8 +13,6 @@ customer service apis for given functionalities
  4. update customer details      url : http://localhost:9001/customer/updateCustomer/{customerId}
  5. delete customer 		 url : http://localhost:9001/customer/deleteCustomer/{customerId}
  
-Account service apis 
- 1.get account details           url: http://localhost:9002/account/accountDetails/{accountId}
- 2. add money			 url: http://localhost:9002/account/addMoney
- 3.withdraw money       	 url: http://localhost:9002/account/withdrawMoney
- 4.delete account 		 url: http://localhost:9002/account/deleteAccount/{accountId}
+docker-compose.yml
+ -contains customer service , MySQL and redis confirmation 
+ - docker-compose up --build -d  will build the services and run them 
