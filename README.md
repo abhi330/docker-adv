@@ -15,4 +15,4 @@ customer service apis for given functionalities
  
 docker-compose.yml
  -contains customer service , MySQL and redis confirmation 
- - docker-compose up --build -d  will build the 
+ - docker-compose up --build -d  will build the and run them 
