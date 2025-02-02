@@ -52,6 +52,6 @@ jobs:
 
       - name: Build and Push Only `customer-service-adv`
         run: |
-          docker-compose build customer-service
-          docker tag abhilashmedaboina/dockerone:customer-service-adv ${{ secrets.DOCKER_USERNAME }}/customer-service-adv:latest
+          cd customer-service  # Navigate to the service directory
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/customer-service-adv:latest .
           docker push ${{ secrets.DOCKER_USERNAME }}/customer-service-adv:latest
