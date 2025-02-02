@@ -1,4 +1,4 @@
-name: CI/CD Pipeline - Customer Service (Docker Compose)
+name: CI/CD Pipeline - Customer Service
 
 on:
   push:
@@ -9,61 +9,53 @@ on:
       - main
 
 jobs:
-  build-test:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repository
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      # Set up Docker Buildx (for multi-platform builds, if needed)
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      # Log in to Docker Hub (required for pulling/pushing images)
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Install Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+          docker-compose version
 
-      # Build and start services using Docker Compose
       - name: Build and Run Services with Docker Compose
         run: |
+          ls -la  # ✅ Ensure mysql/ and redis/ directories exist
           docker-compose up -d --build
           echo "Waiting for services to start..."
           sleep 20  # Allow services to initialize
           docker ps  # Verify running containers
 
-      # Run tests inside the customer-service container
-      - name: Run Tests Inside Customer Service Container
+      - name: Run Application Tests Inside Docker
         run: |
-          docker exec customer-service mvn test
+          docker-compose exec -T customer-service mvn test
 
-      # Shut down Docker Compose after tests
       - name: Shut Down Docker Compose
         run: docker-compose down
 
   push-to-dockerhub:
-    needs: build-test  # Ensure this job runs only after build-test succeeds
+    needs: build-and-test
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repository
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      # Log in to Docker Hub
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # Build and push the customer-service image to Docker Hub
-      - name: Build and Push Customer Service Image
+      - name: Build and Push Only `customer-service-adv`
         run: |
-          docker-compose build customer-service  # Build only the customer-service image
-          docker tag abhilashmedaboina/dockerone:customer-service-adv ${{ secrets.DOCKER_USERNAME }}/dockerone:customer-service-adv
-          docker push ${{ secrets.DOCKER_USERNAME }}/dockerone:customer-service-adv
+          docker-compose build customer-service
+          docker tag abhilashmedaboina/dockerone:customer-service-adv ${{ secrets.DOCKER_USERNAME }}/customer-service-adv:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/customer-service-adv:latest
