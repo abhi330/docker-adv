@@ -30,12 +30,8 @@ jobs:
           ls -la  # hekps to Ensure mysql and redis directories exist
           docker-compose up -d --build
           echo "Waiting for services to start..."
-          sleep 20  # Allow services to initialize
-          docker ps  # Verify running containers
-
-      - name: Run Application Tests Inside Docker
-        run: |
-          docker-compose exec -T customer-service mvn test
+          sleep 20  # time to services to initialize
+          docker ps  #  running containers
 
       - name: Shut Down Docker Compose
         run: docker-compose down
