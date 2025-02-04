@@ -65,7 +65,7 @@ public class CustomerService {
         return customerRepository.findById(id).orElse(null);
     }
 
-    // Evict the cache entry with key = #id when a customer is deleted
+     // Evict the cache entry with key = #id when a customer is deleted
     //@CacheEvict(value = "customers", key = "#id")
     public String deleteCustomer(Long id) {
         Customer customer = getCustomerDetails(id);
