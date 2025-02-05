@@ -12,12 +12,11 @@ RUN mvn clean test -Dspring.profiles.active=test
 # Build the application
 RUN mvn clean package -DskipTests
 
-# Stage 2: Runtime stage (Using a lightweight JDK image)
+# Stage 2: Runtime stage (lightweight JDK image))
 FROM eclipse-temurin:17-jre-alpine
 
-# Set a non-root user for security
-RUN addgroup -S spring && adduser -S spring -G spring
-USER spring:spring
+#
+
 
 # Set working directory
 WORKDIR /app
@@ -25,7 +24,6 @@ WORKDIR /app
 # Copy the built JAR from the previous stage
 COPY --from=build /app/target/customer-service-0.0.1-SNAPSHOT.jar app.jar
 
-# Expose the application port
 EXPOSE 8080
 
 
